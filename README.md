@@ -1,16 +1,41 @@
-# opennet
+# OpenNet News Reader
 
-A new Flutter project.
+Простое Flutter-приложение для чтения новостей с портала OpenNet.
 
-## Getting Started
+![OpenNet News Reader](screenshots/Screenshot_20240103_040357.png)
+![OpenNet News Reader](screenshots/Screenshot_20240103_040716.png)
 
-This project is a starting point for a Flutter application.
+## Как начать
 
-A few resources to get you started if this is your first Flutter project:
+### Зависимости
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Перед началом установки убедитесь, что у вас установлены следующие инструменты:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [Flutter](https://flutter.dev/docs/get-started/install)
+- [Dart](https://dart.dev/get-dart)
+
+### Установка
+
+1. Склонируйте репозиторий:
+
+```bash
+git clone https://github.com/lencodigitexer/opennet.git
+```
+
+2. Перейдите в директорию проекта:
+
+```bash
+cd opennet
+```
+
+3. Установите зависимости:
+
+```bash
+flutter pub get
+```
+
+### Запуск
+
+```bash
+flutter run
+```

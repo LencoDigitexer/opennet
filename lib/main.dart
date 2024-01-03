@@ -60,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('RSS News App'),
+        title: Text('OpenNet - Новости'),
       ),
       body: feed == null
           ? const Center(child: CircularProgressIndicator())
@@ -101,7 +101,7 @@ class NewsDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('News Detail'),
+        title: Text(item.title ?? ''),
       ),
       body: SingleChildScrollView(
         child: Padding(
