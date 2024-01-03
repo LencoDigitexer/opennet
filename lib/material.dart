@@ -1,8 +1,10 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:webfeed/webfeed.dart';
 import 'package:http/http.dart' as http;
 import 'package:xml/xml.dart' as xml;
 import 'package:enough_convert/enough_convert.dart';
+//import 'package:flutter_html/flutter_html.dart';
+//import 'package:flutter_html_all/flutter_html_all.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 
 void main() {
@@ -12,9 +14,8 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return CupertinoApp(
-      title: 'OpenNet - Новости',
-      debugShowCheckedModeBanner: false,
+    return MaterialApp(
+      title: 'RSS News App',
       home: MyHomePage(),
     );
   }
@@ -57,41 +58,30 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      navigationBar: const CupertinoNavigationBar(
-        middle: Text('OpenNet - Новости'),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('OpenNet - Новости'),
       ),
-      child: feed == null
-          ? const Center(child: CupertinoActivityIndicator())
+      body: feed == null
+          ? const Center(child: CircularProgressIndicator())
           : ListView.builder(
               itemCount: feed?.items?.length ?? 0,
               itemBuilder: (context, index) {
                 final List<RssItem>? items = feed?.items;
                 if (items != null && index < items.length) {
                   final item = items[index];
-                  return CupertinoButton(
-                    onPressed: () {
+                  return ListTile(
+                    title: Text(item.title ?? ''),
+                    subtitle: Text(item.pubDate?.toString() ?? ''),
+                    onTap: () {
+                      // Handle tap on a news item
                       Navigator.push(
                         context,
-                        CupertinoPageRoute(
+                        MaterialPageRoute(
                           builder: (context) => NewsDetailScreen(item),
                         ),
                       );
                     },
-                    child: CupertinoListTile(
-                      title: Text(
-                        item.title ?? '',
-                        style: const TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                        softWrap: true,
-                        maxLines:
-                            2, // Set the maximum number of lines before wrapping
-                        overflow: TextOverflow
-                            .ellipsis, // Display ellipsis (...) when text overflows
-                      ),
-                      subtitle: Text(item.pubDate?.toString() ?? ''),
-                      padding: EdgeInsets.zero,
-                    ),
                   );
                 } else {
                   return const SizedBox.shrink();
@@ -109,29 +99,26 @@ class NewsDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        middle: Text(item.title ?? ''),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(item.title ?? ''),
       ),
-      child: SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 100),
               Text(
                 item.title ?? '',
-                style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8),
               Text(
                 item.pubDate?.toString() ?? '',
-                style: const TextStyle(
-                    fontSize: 14, color: CupertinoColors.systemGrey),
+                style: TextStyle(fontSize: 14, color: Colors.grey),
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16),
               HtmlWidget(item.description ?? ''),
             ],
           ),
