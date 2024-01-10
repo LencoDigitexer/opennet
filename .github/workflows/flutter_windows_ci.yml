@@ -2,7 +2,10 @@ name: Flutter Windows CI
 
 on:
   push:
-    branches: [main]
+    branches: 
+      - main
+    tags:
+      - '*'
   pull_request:
     branches: [main]
 
