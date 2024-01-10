@@ -27,10 +27,26 @@ jobs:
       - name: Build Windows App
         run: flutter build windows
 
-      - name: Create Release
-        id: create_release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: build/windows/*.exe
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set Git Tag
+      run: git tag -a v${{ github.run_number }} -m "Release v${{ github.run_number }}"
+    
+    - name: Push Git Tag
+      run: git push origin v${{ github.run_number }}
+
+    - name: Create Release
+      id: create_release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          build/windows/your_app.exe
+        token: ${{ secrets.GITHUB_TOKEN }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
