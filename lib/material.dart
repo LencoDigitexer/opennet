@@ -46,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
       const codec = Koi8rCodec(allowInvalid: false);
       final encoded = codec.decode(encodedBytes);
 
-      final document = xml.parse(encoded!);
+      final document = xml.parse(encoded);
       final rssElement = document.findElements('rss').first;
       setState(() {
         feed = RssFeed.parse(rssElement.toXmlString());
@@ -60,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('OpenNet - Новости'),
+        title: const Text('OpenNet - Новости'),
       ),
       body: feed == null
           ? const Center(child: CircularProgressIndicator())
@@ -111,14 +111,14 @@ class NewsDetailScreen extends StatelessWidget {
             children: [
               Text(
                 item.title ?? '',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Text(
                 item.pubDate?.toString() ?? '',
-                style: TextStyle(fontSize: 14, color: Colors.grey),
+                style: const TextStyle(fontSize: 14, color: Colors.grey),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               HtmlWidget(item.description ?? ''),
             ],
           ),

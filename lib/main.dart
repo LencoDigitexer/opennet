@@ -45,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
       const codec = Koi8rCodec(allowInvalid: false);
       final encoded = codec.decode(encodedBytes);
 
-      final document = xml.parse(encoded!);
+      final document = xml.parse(encoded);
       final rssElement = document.findElements('rss').first;
       setState(() {
         feed = RssFeed.parse(rssElement.toXmlString());
